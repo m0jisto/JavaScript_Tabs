@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () { // Скрипт начинает работать с Dom, только когда вся HTML структура кода загрузилась
 
     'use strict';
+
     let info = document.querySelector('.info-header'), // Добавляем все нужные нам элементы со страницы
         tab = document.querySelectorAll('.info-header-tab'),
         tabContent = document.querySelectorAll('.info-tabcontent');
@@ -101,4 +102,34 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
     }
 
     setClock('timer', deadline);
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close'),
+        desBtn = document.querySelectorAll('.description-btn');
+
+    for (let i = 0; i <= desBtn.length; i++){
+        desBtn[i].addEventListener('click', function() {
+            overlay.style.display = "block";
+            this.classList.add('.more-splash');
+            document.body.style.overflow = 'hidden';
+        });
+        close.addEventListener('click', function () {
+            overlay.style.display = "none";
+            more.classList.remove('more-splash');
+            document.body.style.overflow = '';
+        });
+    }
+
+    more.addEventListener('click', function() {
+        overlay.style.display = "block";
+        this.classList.add('.more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+
+    close.addEventListener('click', function () {
+        overlay.style.display = "none";
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
 });
