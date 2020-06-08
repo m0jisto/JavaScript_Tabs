@@ -34,5 +34,71 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
                 }
             }
         }
-    }) ;
+    });
+
+    //Timer
+
+    let deadline = '2020-06-09';
+
+    function getTimeRemading (endTime) {
+        let t = Date.parse(endTime) - Date.parse(new Date()),
+            seconds = Math.floor((t / 1000) % 60),
+            minutes = Math.floor((t / 1000 / 60) % 60),
+            hours = Math.floor((t / 1000 / 60 / 60) /*%24*/);
+            //days = Math.floor(t / (1000 * 60 * 60 * 24));
+
+        if ((seconds / 10) < 1) {
+            seconds = "0" + seconds;
+        }
+
+        if ((minutes / 10) < 1) {
+            minutes = "0" + minutes;
+        }
+
+        if ((hours / 10) < 1) {
+            hours = "0" + hours;
+        }
+
+        /*if ((dates / 10) < 1) {
+            dates = "0" + dates;
+        }*/
+
+        if (Date.parse(endTime) <= Date.parse(new Date())) {
+            seconds = "00";
+            minutes = "00";
+            hours = "00";
+        }
+            
+        return {
+            'total' : t,
+            //'days' : days,
+            'hours' : hours,
+            'minuts' : minutes,
+            'seconds' : seconds,
+        };
+    }
+
+    function setClock (id, endtime) {
+        let timer = document.getElementById(id),
+            //days = document.querySelector('.days'),
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            seconds = timer.querySelector('.seconds'),
+            timeInterval = setInterval(updateClock, 1000);
+
+        function updateClock() {
+            let t = getTimeRemading(endtime);
+            
+            //days.textContent = t.days;
+            hours.textContent = t.hours;
+            minutes.textContent = t.minuts;
+            seconds.textContent = t.seconds;
+
+            if (t.total < 0) {
+                clearInterval(timeInterval)
+            }
+        }
+    }
+
+    setClock('timer', deadline);
 });
