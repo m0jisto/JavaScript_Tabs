@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 window.addEventListener('DOMContentLoaded', function () { // Скрипт начинает работать с Dom, только когда вся HTML структура кода загрузилась
 
     'use strict';
@@ -7,10 +9,10 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
         tabContent = document.querySelectorAll('.info-tabcontent');
 
     function hideTabContent(a) { // Функция для скрытия всех табов
-            for (let i = a; i < tabContent.length; i++) {
-                tabContent[i].classList.remove('show');
-                tabContent[i].classList.add('hide');
-            }
+        for (let i = a; i < tabContent.length; i++) {
+            tabContent[i].classList.remove('show');
+            tabContent[i].classList.add('hide');
+        }
     }
 
     hideTabContent(1); //Вызов функции для скрытия всех табов кроме первого
@@ -27,8 +29,8 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
         let target = event.target;
 
         if (target && target.classList.contains('info-header-tab')) {
-            for(let i = 0; i < tab.length; i++) {
-                if (target == tab[i]){
+            for (let i = 0; i < tab.length; i++) {
+                if (target == tab[i]) {
                     hideTabContent(0);
                     showTabContent(i);
                     break;
@@ -41,11 +43,11 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
 
     let deadline = '2020-06-10';
 
-    function getTimeRemading (endTime) {
+    function getTimeRemading(endTime) {
         let t = Date.parse(endTime) - Date.parse(new Date()),
             seconds = Math.floor((t / 1000) % 60),
             minutes = Math.floor((t / 1000 / 60) % 60),
-            hours = Math.floor((t / 1000 / 60 / 60) %24),
+            hours = Math.floor((t / 1000 / 60 / 60) % 24),
             days = Math.floor(t / (1000 * 60 * 60 * 24));
 
         if ((seconds / 10) < 1) {
@@ -69,17 +71,17 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
             minutes = "00";
             hours = "00";
         }
-            
+
         return {
-            'total' : t,
-            'days' : days,
-            'hours' : hours,
-            'minuts' : minutes,
-            'seconds' : seconds,
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minuts': minutes,
+            'seconds': seconds,
         };
     }
 
-    function setClock (id, endtime) {
+    function setClock(id, endtime) {
         let timer = document.getElementById(id),
             days = document.querySelector('.days'),
             hours = timer.querySelector('.hours'),
@@ -89,31 +91,35 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
 
         function updateClock() {
             let t = getTimeRemading(endtime);
-            
+
             days.textContent = t.days;
             hours.textContent = t.hours;
             minutes.textContent = t.minuts;
             seconds.textContent = t.seconds;
 
             if (t.total < 0) {
-                clearInterval(timeInterval)
+                clearInterval(timeInterval);
             }
         }
     }
 
     setClock('timer', deadline);
 
+
+    //Создание модального окна на табах и под таймером
     let more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close'),
         desBtn = document.querySelectorAll('.description-btn');
 
-    for (let i = 0; i <= desBtn.length; i++){
-        desBtn[i].addEventListener('click', function() {
+    for (let i = 0; i <= desBtn.length; i++) {
+        
+        desBtn[i].addEventListener('click', function () {
             overlay.style.display = "block";
             this.classList.add('.more-splash');
             document.body.style.overflow = 'hidden';
         });
+
         close.addEventListener('click', function () {
             overlay.style.display = "none";
             more.classList.remove('more-splash');
@@ -121,7 +127,7 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
         });
     }
 
-    more.addEventListener('click', function() {
+    more.addEventListener('click', function () {
         overlay.style.display = "block";
         this.classList.add('.more-splash');
         document.body.style.overflow = 'hidden';
@@ -132,4 +138,31 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
         more.classList.remove('more-splash');
         document.body.style.overflow = '';
     });
+
+
+
+    //Создание нового блока на странице
+    /*class Optionals {
+    constructor(height, width, bg, fontSize, textAlign, text) {
+        this.height = height + 'px';
+        this.width = width + 'px';
+        this.bg = bg;
+        this.fontSize = fontSize + 'px';
+        this.textAlign = textAlign;
+        this.text = text;
+    }
+    createDiv() {
+        let elem = document.createElement('div');
+        elem.textContent = this.text;
+        document.body.append(elem);
+        elem.style.cssText = `height: ${this.height};
+                           width: ${this.width};
+                           background-color: ${this.bg};
+                           font-size: ${this.fontSize};
+                           text-align: ${this.textAlign};
+  `;
+    }
+}
+let block = new Optionals(500, 500, "blue", 50, "center", "Hello World");
+block.createDiv();*/
 });
