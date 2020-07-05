@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
 
     //Timer
 
-    let deadline = '2020-06-13';
+    let deadline = '2020-07-02';
 
     function getTimeRemading(endTime) {
         let t = Date.parse(endTime) - Date.parse(new Date()),
@@ -167,7 +167,7 @@ window.addEventListener('DOMContentLoaded', function () { // Скрипт нач
         statusMessage.classList.add('status');
 
     function sendForm(elem) {
-        elem.addEventListener('submit', function(event) {
+        elem.addEventListener('submit', function(e) {
             e.preventDefault();
             elem.appendChild(statusMessage);
             let formData = new FormData(elem);
